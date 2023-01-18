@@ -1,0 +1,45 @@
+Zdanie testowe
+void ZapiszOsobyBin(int tab[], int Osoba[], int licznik){
+    FILE *plik;
+    plik = fopen("in.dat", "wb");
+    if (plik==NULL){
+        printf("Nie mozna otworzyc pliku");
+        return;
+    }
+    fwrite(tab, sizeof(int), licznik, plik);
+    fclose(plik);
+}
+int OdczytPliku(const char *nazwa)
+{
+    char Zdanie_z_Pliku[100];
+    FILE * plik;
+    int i=0;
+    plik = fopen(nazwa, "r");
+    if (plik==NULL)
+    {
+        printf("Nie mozna otworzyc pliku %c", nazwa);
+        return 0;
+    }
+    while((nazwa=fgets(Zdanie_z_Pliku,100,plik))!=EOF){
+        Zdanie_z_Pliku[i]=nazwa;
+        i++;
+    }
+    fprintf(plik,"%s", Zdanie_z_Pliku);
+    fclose(plik);
+    return Zdanie_z_Pliku;
+}
+void Losuj_Zdanie(Zdanie *Zdanie_z_pliku){
+    int i=0;
+    int los;
+    Zdanie *tmp;
+    tmp=Zdanie_z_pliku;
+    while(tmp!=NULL){
+        tmp=tmp->next;
+        i++;
+    }
+    los=rand()%i;
+    for(i=0; i<los; i++){
+        Zdanie_z_pliku=Zdanie_z_pliku->next;
+    }
+    printf("%s", Zdanie_z_pliku->Zdanie_z_Pliku);
+}
